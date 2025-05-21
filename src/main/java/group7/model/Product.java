@@ -1,0 +1,89 @@
+package group7.model;
+
+public abstract class Product {
+    private String id;              //Ma san pham
+    private String name;            //Ten san pham
+    private String brand;           //Hang san pham
+    private int price;              //Gia tien
+    private float rating;          //Thang diem danh gia
+    private String url;            //Lien ket hinh anh
+    private float[] vector;    // Vector bieu dien
+
+    //Hien thi thong tin co ban cua san pham
+    @Override
+    public String toString() {
+        return "Product" + getBrand() + " " + getName() + "(" + getId() + ")" + "\n"
+                + "Price: " + getPrice() + "\n"
+                + "Rating: " + getRating();
+    }
+    //Constructor
+    public Product() {
+
+    }
+
+    //Getter and Setter
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public String getUrl(){
+        return url;
+    }
+
+    public void setUrl(String url){
+        this.url = url;
+    }
+
+    //public float[] getVector() {
+    //    return vector;
+    //}
+
+    public void setVector(float[] vector) {
+        this.vector = vector;
+    }
+
+	public Product(String id, String name, String brand, int price, float rating, String url) {
+		this.id = id;
+		this.name = name;
+		this.brand = brand;
+		this.price = price;
+		this.rating = rating;
+        this.url = url;
+	}
+}
