@@ -3,6 +3,3 @@ group7\data\collector\DataCollector.class
 group7\data\storage\LaptopDAO.class
 group7\model\Laptop.class
 group7\model\Product.class
-group7\search\rag\VectorSearchIntegration.class
-group7\Main.class
-group7\search\rag\VectorSearchIntegration$LaptopWithScore.class

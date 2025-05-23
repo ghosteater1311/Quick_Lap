@@ -1,5 +1,7 @@
 package group7.model;
 
+import java.util.Map;
+
 public abstract class Product {
     private String id;              //Ma san pham
     private String name;            //Ten san pham
@@ -7,7 +9,7 @@ public abstract class Product {
     private int price;              //Gia tien
     private float rating;          //Thang diem danh gia
     private String url;            //Lien ket hinh anh
-    private float[] vector;    // Vector bieu dien
+    private double[] vector;    // Vector bieu dien
 
     //Hien thi thong tin co ban cua san pham
     @Override
@@ -54,7 +56,7 @@ public abstract class Product {
         this.price = price;
     }
 
-    public double getRating() {
+    public float getRating() {
         return rating;
     }
 
@@ -70,11 +72,11 @@ public abstract class Product {
         this.url = url;
     }
 
-    //public float[] getVector() {
-    //    return vector;
-    //}
+    public double[] getVector() {
+        return vector;
+    }
 
-    public void setVector(float[] vector) {
+    public void setVector(double[] vector) {
         this.vector = vector;
     }
 
@@ -86,4 +88,6 @@ public abstract class Product {
 		this.rating = rating;
         this.url = url;
 	}
+
+    public abstract Map<String,Object> mapToDatabase();
 }

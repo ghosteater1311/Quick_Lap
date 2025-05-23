@@ -3,8 +3,6 @@ package group7.model;
 import java.util.HashMap;
 import java.util.Map;
 
-import ai.djl.inference.Predictor;
-
 public class Laptop extends Product {
     private String os;             // He dieu hanh
     private String cpu;            // CPU
@@ -161,12 +159,29 @@ public class Laptop extends Product {
                 + getResolution() + " " + getScreenSize() + " " + getWeight() + " " + getBatteryLife() + " "
                 + getCategory();
     }
-    
-    // Hàm chuyển specifications sang vector 768 chiều
-    // generateVector
-    public float[] getVector(Predictor<String, float[]> textEmbedding) throws Exception {
-        float[] vector = textEmbedding.predict(toString());
-        // System.out.println("Vector dimensions: " + vector.length);
-        return vector;
+
+    @Override
+     public Map<String,Object> mapToDatabase(){
+    	Map<String, Object> attributes = new HashMap<>();
+    	attributes.put("id", this.getId());
+        attributes.put("laptop_name", this.getName()); 
+        attributes.put("brand", this.getBrand()); 
+        attributes.put("category", this.getCategory()); 
+        attributes.put("os", this.getOs()); 
+        attributes.put("price", this.getPrice()); 
+        attributes.put("rating", this.getRating()); 
+        attributes.put("cpu", this.getCpu()); 
+        attributes.put("gpu", this.getGpu());
+        attributes.put("refresh_rate", this.getScreenRate()); 
+        attributes.put("ram", this.getRam()); 
+        attributes.put("disk_size", this.getStorage()); 
+        attributes.put("disk_type", this.getDiskType()); 
+        attributes.put("resolution", this.getResolution()); 
+        attributes.put("screen_size", this.getScreenSize()); 
+        attributes.put("weight", this.getWeight()); 
+        attributes.put("battery", this.getBatteryLife()); 
+        attributes.put("url", this.getUrl()); 
+        return attributes;
+    	
     }
 }

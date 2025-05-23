@@ -1,12 +1,15 @@
 package group7;
 
 import group7.model.*;
-import group7.search.rag.RAGIntegration;
-import group7.data.storage.*;
+import group7.search.rag.EmbeddingService;
+import group7.search.rag.GPTClient;
+import group7.search.rag.ProductSearchService;
 
-import java.util.Scanner;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,38 +34,63 @@ public class Main {
         Laptop l19 = new Laptop("L019", "ThinkBook 14", "Lenovo", "Business", "Windows 10", 1000, 4.0f, "AMD Ryzen 5 4500U", "Integrated", 60, 8, 512, "SSD", "1920x1080", 14.0f, 1.5f, 9.0f, "http://example.com/laptop19");
         Laptop l20 = new Laptop("L020", "Inspiron 15", "Dell", "Office", "Windows 10", 800, 3.8f, "Intel i3-1005G1", "Intel UHD", 60, 8, 256, "SSD", "1920x1080", 15.6f, 1.8f, 6.5f, "http://example.com/laptop20");
 
-        LaptopDAO admin = new PostgresLaptopDAO();
-        admin.insertLaptop(l1);
-        admin.insertLaptop(l2);
-        admin.insertLaptop(l3);
-        admin.insertLaptop(l4);
-        admin.insertLaptop(l5);
-        admin.insertLaptop(l6);
-        admin.insertLaptop(l7);
-        admin.insertLaptop(l8);
-        admin.insertLaptop(l9);
-        admin.insertLaptop(l10);
-        admin.insertLaptop(l11);
-        admin.insertLaptop(l12);
-        admin.insertLaptop(l13);
-        admin.insertLaptop(l14);
-        admin.insertLaptop(l15);
-        admin.insertLaptop(l16);
-        admin.insertLaptop(l17);
-        admin.insertLaptop(l18);
-        admin.insertLaptop(l19);
-        admin.insertLaptop(l20);
+        List<Laptop> laptops = new ArrayList<>();
+        laptops.add(l1);
+        laptops.add(l2);
+        laptops.add(l3);
+        laptops.add(l4);
+        laptops.add(l5);
+        laptops.add(l6);
+        laptops.add(l7);
+        laptops.add(l8);
+        laptops.add(l9);
+        laptops.add(l10);
+        laptops.add(l11);
+        laptops.add(l12);
+        laptops.add(l13);
+        laptops.add(l14);
+        laptops.add(l15);
+        laptops.add(l16);
+        laptops.add(l17);
+        laptops.add(l18);
+        laptops.add(l19);
+        laptops.add(l20);
+
+        EmbeddingService embeddingService = new EmbeddingService();
+        try {
+            double[][] embeddings = embeddingService.embedProducts(laptops);
+            for (int i = 0; i < laptops.size(); i++) {
+                laptops.get(i).setVector(embeddings[i]);
+            }
+        } catch (IOException e) {
+            System.err.println("Loi IO: " + e.getMessage());
+        } catch (InterruptedException e) {
+            System.err.println("Loi Interrupted: " + e.getMessage());
+        }
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Nhập văn bản: ");
-        String query = scanner.nextLine(); // Đọc cả dòng
-
+        System.out.print("Nhap chuoi: ");
+        String query = scanner.nextLine(); 
+        double[] queryVector = null;
         try {
-            RAGIntegration rag = new RAGIntegration();
-            String result = rag.retrieveAndGenerate(query); // nhớ truyền context đúng
-            System.out.println(result);
-        } catch (Exception e) {
-            e.printStackTrace();
+            queryVector = embeddingService.embedQuery(query);
+        } catch (IOException e) {
+            System.err.println("Loi IO: " + e.getMessage());
         }
+
+        GPTClient llm = new GPTClient();
+        ProductSearchService productSearchService = new ProductSearchService();
+
+        List<Laptop> similarLaptop = null;
+        try {
+            similarLaptop = productSearchService.searchVector(queryVector, laptops, 10);
+        } catch (Exception e) {
+        System.err.println("Loi khi tim kiem Laptop: " + e.getMessage());
+        }
+        
+        String answer = llm.askGPT(query, similarLaptop);
+        System.out.println(answer);
+        scanner.close();
+
     }
 }
