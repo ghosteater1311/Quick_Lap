@@ -1,10 +1,12 @@
 D:\ProjectOOP\quicklap\src\main\java\group7\model\Laptop.java
-D:\ProjectOOP\quicklap\src\main\java\group7\data\storage\LaptopDAO.java
+D:\ProjectOOP\quicklap\src\main\java\group7\data\storage\PostgreSqlDAO.java
 D:\ProjectOOP\quicklap\src\main\java\group7\search\rag\EmbeddingService.java
+D:\ProjectOOP\quicklap\src\main\java\group7\search\rag\ProductWithScore.java
 D:\ProjectOOP\quicklap\src\main\java\group7\data\collector\DataCollector.java
+D:\ProjectOOP\quicklap\src\main\java\group7\data\storage\ProductDAO.java
 D:\ProjectOOP\quicklap\src\main\java\group7\model\Product.java
+D:\ProjectOOP\quicklap\src\main\java\group7\data\storage\LaptopPostgreSqlFactory.java
 D:\ProjectOOP\quicklap\src\main\java\group7\search\rag\GPTClient.java
 D:\ProjectOOP\quicklap\src\main\java\group7\Main.java
-D:\ProjectOOP\quicklap\src\main\java\group7\search\rag\LaptopWithScore.java
 D:\ProjectOOP\quicklap\src\main\java\group7\search\rag\ProductSearchService.java
-D:\ProjectOOP\quicklap\src\main\java\group7\data\storage\PostgresLaptopDAO.java
+D:\ProjectOOP\quicklap\src\main\java\group7\data\storage\ProductFactory.java

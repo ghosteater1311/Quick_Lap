@@ -20,14 +20,14 @@ public class EmbeddingService {
         return result.length > 0 ? result[0] : new double[0]; // Trả về vector đầu tiên (và duy nhất)
     }
 
-    public double[][] embedProducts(List<Laptop> laptops) throws IOException, InterruptedException {
+    public double[][] embedProducts(List<? extends Product> products) throws IOException, InterruptedException {
         List<String> texts = new ArrayList<>();
-        for (Laptop l : laptops) {
-            texts.add(l.toString());
+        for (Product p : products) {
+            texts.add(p.toString());
         }
         String[] sentences = texts.toArray(new String[0]);
         double[][] embeddings = getEmbeddings(sentences);
-        return  embeddings;
+        return embeddings;
     }
 
     public double[][] getEmbeddings(String[] sentences) throws IOException {

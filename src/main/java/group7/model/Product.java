@@ -3,22 +3,18 @@ package group7.model;
 import java.util.Map;
 
 public abstract class Product {
-    private String id;              //Ma san pham
-    private String name;            //Ten san pham
-    private String brand;           //Hang san pham
-    private int price;              //Gia tien
-    private float rating;          //Thang diem danh gia
-    private String url;            //Lien ket hinh anh
-    private double[] vector;    // Vector bieu dien
+    private String id;          // Ma san pham
+    private String name;        // Ten san pham
+    private String brand;       // Hang san pham
+    private int price;          // Gia tien
+    private float rating;       // Thang diem danh gia
+    private String url;         // Lien ket hinh anh
+    private double[] vector;    // Vector embedding
 
-    //Hien thi thong tin co ban cua san pham
+    // Hien thi thong tin co ban cua san pham
     @Override
-    public String toString() {
-        return "Product" + getBrand() + " " + getName() + "(" + getId() + ")" + "\n"
-                + "Price: " + getPrice() + "\n"
-                + "Rating: " + getRating();
-    }
-    //Constructor
+    public abstract String toString();
+    // Constructor
     public Product() {
 
     }

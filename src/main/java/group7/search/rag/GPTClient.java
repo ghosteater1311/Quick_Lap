@@ -1,6 +1,6 @@
 package group7.search.rag;
 
-import group7.model.Laptop;
+import group7.model.*;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -14,22 +14,18 @@ public class GPTClient {
     private static final String API_KEY = "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";
     private static final String ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
 
-    public String askGPT(String userQuery, List<Laptop> laptops) {
+    public String askGPT(String userQuery, List<? extends Product> products) {
         try {
             StringBuilder productListBuilder = new StringBuilder();
-            for (int i = 0; i < laptops.size(); i++) {
-                Laptop l = laptops.get(i);
-                productListBuilder.append(l.getName()).append(", ")
-                    .append("CPU: ").append(l.getCpu()).append(", ")
-                    .append("RAM: ").append(l.getRam()).append(", ")
-                    .append("Lưu trữ: ").append(l.getStorage()).append(", ")
-                    .append("Mô tả: ").append(l.toString()).append("\n\n");
+            for (int i = 0; i < products.size(); i++) {
+                Product p = products.get(i);
+                productListBuilder.append(p.toString()).append("\n\n");
             }
 
             String prompt = "User has the following question: \"" + userQuery + "\"\n"
-                + "Below is a list of suggested laptop products:\n"
+                + "Below is a list of suggested products:\n"
                 + productListBuilder.toString()
-                + "Based on product information, advise the user which laptop to choose and explain why.";
+                + "Based on the information of the above products, give advice to users on which 5 products are most suitable and explain why.";
 
             JSONObject message1 = new JSONObject()
                 .put("role", "system")

@@ -4,18 +4,21 @@ import group7.model.*;
 import java.util.*;
 
 public class ProductSearchService {
-    public List<Laptop> searchVector(double[] queryVector, List<Laptop> laptops, int k) throws Exception {
-        List<LaptopWithScore> scoredLaptops = new ArrayList<>();
-        for (Laptop laptop : laptops) {
-            double score = cosineSimilarity(queryVector, laptop.getVector()); // Tính điểm tương đồng giữa queryVector và vector của laptop.
-            scoredLaptops.add(new LaptopWithScore(laptop, score));
+    @SuppressWarnings("unchecked")
+    public <T extends Product> List<T> searchVector(double[] queryVector, List<T> products, int k) throws Exception {
+        List<ProductWithScore> scoredProducts = new ArrayList<>();
+        for (Product product : products) {
+            double score = cosineSimilarity(queryVector, product.getVector());
+            scoredProducts.add(new ProductWithScore(product, score));
         }
-        // Sắp xếp và lấy top k
-        scoredLaptops.sort((a, b) -> Double.compare(b.score, a.score));
-        List<Laptop> results = new ArrayList<>();
-        for (int i = 0; i < Math.min(k, scoredLaptops.size()); i++) {
-            results.add(scoredLaptops.get(i).laptop);
+
+        scoredProducts.sort((a, b) -> Double.compare(b.getScore(), a.getScore()));
+
+        List<T> results = new ArrayList<>();
+        for (int i = 0; i < Math.min(k, scoredProducts.size()); i++) {
+            results.add((T) scoredProducts.get(i).getProduct());
         }
+
         return results;
     }
 

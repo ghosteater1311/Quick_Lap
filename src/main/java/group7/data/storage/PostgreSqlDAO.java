@@ -1,10 +1,14 @@
 package group7.data.storage;
 
 import group7.model.*;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import group7.data.storage.ProductDAO;
+import group7.data.storage.ProductFactory;
 
 public class PostgreSqlDAO<T extends Product> implements ProductDAO<T>{
 	private final String url = "jdbc:postgresql://192.168.1.226:5433/products";
@@ -39,7 +43,7 @@ public class PostgreSqlDAO<T extends Product> implements ProductDAO<T>{
 	    StringBuilder placeholders = new StringBuilder();
 	    int col=0;
 	    for (String key : attributes.keySet()) {
-	            columns.append("key").append(",");
+	            columns.append(key).append(",");
 	            placeholders.append("?,");
 	            col++;
 	    }
@@ -57,6 +61,8 @@ public class PostgreSqlDAO<T extends Product> implements ProductDAO<T>{
 	                pstmt.setInt(index, (Integer) value);
 	            } else if (value instanceof Float) {
 	                pstmt.setFloat(index, (Float) value);
+	            } else if (value instanceof Double) {
+	                pstmt.setDouble(index, (Double) value);
 	            } else if (value == null) {
 	                pstmt.setNull(index, java.sql.Types.NULL);
 	            } else {

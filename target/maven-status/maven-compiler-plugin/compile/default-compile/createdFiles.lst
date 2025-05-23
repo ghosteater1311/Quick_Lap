@@ -1,5 +1,3 @@
-group7\data\storage\PostgresLaptopDAO.class
 group7\data\collector\DataCollector.class
-group7\data\storage\LaptopDAO.class
 group7\model\Laptop.class
 group7\model\Product.class

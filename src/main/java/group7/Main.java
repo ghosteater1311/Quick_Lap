@@ -4,15 +4,17 @@ import group7.model.*;
 import group7.search.rag.EmbeddingService;
 import group7.search.rag.GPTClient;
 import group7.search.rag.ProductSearchService;
+import group7.data.storage.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Scanner;
 
+
 public class Main {
     public static void main(String[] args) {
+        /*
         Laptop l1 = new Laptop("L001", "Aspire 5", "Acer", "Ultrabook", "Windows 10", 1500, 4.5f, "Intel i5-1135G7", "Intel Iris Xe", 60, 8, 512, "SSD", "1920x1080", 15.6f, 1.8f, 8.0f, "http://example.com/laptop1");
         Laptop l2 = new Laptop("L002", "ThinkPad X1", "Lenovo", "Business", "Windows 11", 2200, 4.7f, "Intel i7-1165G7", "Intel Iris Xe", 90, 16, 1024, "SSD", "2560x1440", 14.0f, 1.3f, 10.0f, "http://example.com/laptop2");
         Laptop l3 = new Laptop("L003", "MacBook Air", "Apple", "Ultrabook", "macOS", 1800, 4.8f, "Apple M1", "Integrated", 60, 8, 512, "SSD", "2560x1600", 13.3f, 1.29f, 15.0f, "http://example.com/laptop3");
@@ -33,8 +35,9 @@ public class Main {
         Laptop l18 = new Laptop("L018", "Predator Helios", "Acer", "Gaming", "Windows 11", 1800, 4.4f, "Intel i7-10750H", "NVIDIA RTX 2060", 144, 16, 1024, "SSD", "1920x1080", 15.6f, 2.5f, 7.0f, "http://example.com/laptop18");
         Laptop l19 = new Laptop("L019", "ThinkBook 14", "Lenovo", "Business", "Windows 10", 1000, 4.0f, "AMD Ryzen 5 4500U", "Integrated", 60, 8, 512, "SSD", "1920x1080", 14.0f, 1.5f, 9.0f, "http://example.com/laptop19");
         Laptop l20 = new Laptop("L020", "Inspiron 15", "Dell", "Office", "Windows 10", 800, 3.8f, "Intel i3-1005G1", "Intel UHD", 60, 8, 256, "SSD", "1920x1080", 15.6f, 1.8f, 6.5f, "http://example.com/laptop20");
-
-        List<Laptop> laptops = new ArrayList<>();
+        */
+        // List<Laptop> laptops = new ArrayList<>();
+        /* 
         laptops.add(l1);
         laptops.add(l2);
         laptops.add(l3);
@@ -55,6 +58,9 @@ public class Main {
         laptops.add(l18);
         laptops.add(l19);
         laptops.add(l20);
+        */ 
+    	ProductDAO<Laptop> admin = new PostgreSqlDAO<Laptop>("laptop",new LaptopPostgreSqlFactory());
+    	List<Laptop> laptops = admin.getAllProduct();
 
         EmbeddingService embeddingService = new EmbeddingService();
         try {
@@ -91,6 +97,5 @@ public class Main {
         String answer = llm.askGPT(query, similarLaptop);
         System.out.println(answer);
         scanner.close();
-
     }
 }
