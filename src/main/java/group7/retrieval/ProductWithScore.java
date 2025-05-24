@@ -1,4 +1,4 @@
-package group7.search.rag;
+package group7.retrieval;
 
 import group7.model.*;
 

@@ -11,12 +11,25 @@ public abstract class Product {
     private String url;         // Lien ket hinh anh
     private double[] vector;    // Vector embedding
 
+    //Map to DataBase
+    public abstract Map<String,Object> mapToDatabase();
+
     // Hien thi thong tin co ban cua san pham
     @Override
     public abstract String toString();
+
     // Constructor
     public Product() {
 
+    }
+
+    public Product(String id, String name, String brand, int price, float rating, String url) {
+        this.id = id;
+        this.name = name;
+        this.brand = brand;
+        this.price = price;
+        this.rating = rating;
+        this.url = url;
     }
 
     //Getter and Setter
@@ -75,15 +88,4 @@ public abstract class Product {
     public void setVector(double[] vector) {
         this.vector = vector;
     }
-
-	public Product(String id, String name, String brand, int price, float rating, String url) {
-		this.id = id;
-		this.name = name;
-		this.brand = brand;
-		this.price = price;
-		this.rating = rating;
-        this.url = url;
-	}
-
-    public abstract Map<String,Object> mapToDatabase();
 }

@@ -1,5 +1,6 @@
-package group7.search.rag;
+package group7.retrieval;
 
+import group7.config.Configuration;
 import group7.model.*;
 
 import java.io.BufferedReader;
@@ -11,13 +12,19 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+import com.google.gson.Gson;
+
 public class EmbeddingService {
-    private static final String API_URL = "http://localhost:5000/embed";
+    private final Configuration config;
+
+    public EmbeddingService(Configuration config) {
+        this.config = config;
+    }
 
     public double[] embedQuery(String query) throws IOException {
         String[] singleInput = new String[]{ query };
         double[][] result = getEmbeddings(singleInput);
-        return result.length > 0 ? result[0] : new double[0]; // Trả về vector đầu tiên (và duy nhất)
+        return result.length > 0 ? result[0] : new double[0];
     }
 
     public double[][] embedProducts(List<? extends Product> products) throws IOException, InterruptedException {
@@ -40,7 +47,7 @@ public class EmbeddingService {
         jsonBuilder.append("]}");
         String jsonInputString = jsonBuilder.toString();
 
-        URL url = new URL(API_URL);
+        URL url = new URL(config.getApiUrl()); // Sử dụng config thay vì hard-code
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "application/json; utf-8");
@@ -67,30 +74,7 @@ public class EmbeddingService {
     }
 
     public double[][] parseJsonArray2D(String json) {
-        json = json.trim();
-        if (json.startsWith("[") && json.endsWith("]")) {
-            json = json.substring(1, json.length() - 1); 
-        }
-
-        String[] arrays = json.split("\\],\\[");
-        double[][] result = new double[arrays.length][];
-
-        for (int i = 0; i < arrays.length; i++) {
-            String arr = arrays[i]
-                    .replace("[", "")
-                    .replace("]", "")
-                    .trim();
-            if (arr.isEmpty()) {
-                result[i] = new double[0];
-                continue;
-            }
-            String[] parts = arr.split(",");
-            double[] vec = new double[parts.length];
-            for (int j = 0; j < parts.length; j++) {
-                vec[j] = Double.parseDouble(parts[j].trim());
-            }
-            result[i] = vec;
-        }
-        return result;
+        Gson gson = new Gson();
+        return gson.fromJson(json, double[][].class);
     }
 }

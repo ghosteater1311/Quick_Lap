@@ -1,5 +1,6 @@
-package group7.search.rag;
+package group7.llm;
 
+import group7.config.Configuration;
 import group7.model.*;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -10,11 +11,15 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class GPTClient {
-    private static final String API_KEY = "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";
-    private static final String ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
+public class MistralClient implements AIClient {
+    private final Configuration config;
 
-    public String askGPT(String userQuery, List<? extends Product> products) {
+    public MistralClient(Configuration config) {
+        this.config = config;
+    }
+
+    @Override
+    public String getResponse(String userQuery, List<? extends Product> products) {
         try {
             StringBuilder productListBuilder = new StringBuilder();
             for (int i = 0; i < products.size(); i++) {
@@ -45,8 +50,8 @@ public class GPTClient {
                 .put("temperature", 0.7);
 
             HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(ENDPOINT))
-                .header("Authorization", "Bearer " + API_KEY)
+                .uri(URI.create(config.getApiEndpoint())) // Sử dụng config thay vì hard-code
+                .header("Authorization", "Bearer " + config.getApiKey()) // Sử dụng config thay vì hard-code
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonBody.toString()))
                 .build();
@@ -61,10 +66,10 @@ public class GPTClient {
             JSONObject message = firstChoice.getJSONObject("message");
             String answer = message.getString("content");
 
-            return answer;  // Trả về chỉ phần văn bản trả lời GPT
+            return answer;
         } catch (Exception e) {
             e.printStackTrace();
-            return "Lỗi khi gọi GPT API";
+            return "Lỗi khi gọi Mistral API";
         }
     }
 }

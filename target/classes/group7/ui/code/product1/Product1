@@ -1,0 +1,40 @@
+package project.ui.product1;
+
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+public class Product1 {
+    private VBox productPane;
+
+    public Product1() {
+        productPane = new VBox(10);
+        productPane.setStyle("-fx-padding: 20;");
+
+        // Thêm sản phẩm
+        Image image = new Image("C:\\Users\\TBN\\Desktop\\2024.2 courses\\Java learning - OOP 2024.2\\Java code\\UI\\ImageResources\\Product1.jpg");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
+        Text productName = new Text("MacBook Air M1");
+        productName.setFill(Color.BLACK);
+        Text productPrice = new Text("18.990.000đ");
+        productPrice.setFill(Color.BLACK);
+        Button addButton1 = new Button("More...");
+        addButton1.setTextFill(Color.BLACK);
+        Button addButton2 = new Button("Add to cart");
+        addButton2.setTextFill(Color.BLACK);
+
+        productPane.setTranslateX(40);
+        productPane.setTranslateY(400);
+
+        productPane.getChildren().addAll(imageView, productName, productPrice, addButton1, addButton2);
+    }
+
+    public VBox getProductPane() {
+        return productPane;
+    }
+}

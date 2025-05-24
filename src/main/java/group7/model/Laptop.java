@@ -4,19 +4,54 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Laptop extends Product {
-    private String os;             // He dieu hanh
-    private String cpu;            // CPU
-    private String gpu;            // GPU
-    private int ram;               // Ram
-    private String diskType;       // Loai o cung
-    private int screenRate;        // Tan so quet man hinh
-    private int storage;           // Dung luong o cung
-    private String resolution;     // Do phan giai man hinh
-    private float screenSize;      // Kich thuoc man hinh
-    private float weight;          // Trong luong (Can nang)
-    private float batteryLife;       // Thoi luong pin
-    private String category;       // Loai san pham
-    
+    private String os;              // He dieu hanh
+    private String cpu;             // CPU
+    private String gpu;             // GPU
+    private int ram;                // Ram
+    private String diskType;        // Loai o cung
+    private int screenRate;         // Tan so quet man hinh
+    private int storage;            // Dung luong o cung
+    private String resolution;      // Do phan giai man hinh
+    private float screenSize;       // Kich thuoc man hinh
+    private float weight;           // Trong luong (Can nang)
+    private float batteryLife;      // Thoi luong pin
+    private String category;        // Loai san pham
+
+    //To string
+    @Override
+    public String toString() {
+        return getName() + " " + getBrand() + " " + getPrice() + " " + getRating() + " " + getOs() + " "
+                + getCpu() + " " + getGpu() + " " + getRam() + " " + getDiskType() + " " + getStorage() + " "
+                + getResolution() + " " + getScreenSize() + " " + getWeight() + " " + getBatteryLife() + " "
+                + getCategory();
+    }
+
+    //Map to DataBase
+    @Override
+    public Map<String,Object> mapToDatabase(){
+        Map<String, Object> attributes = new HashMap<>();
+        attributes.put("id", this.getId());
+        attributes.put("laptop_name", this.getName());
+        attributes.put("brand", this.getBrand());
+        attributes.put("category", this.getCategory());
+        attributes.put("os", this.getOs());
+        attributes.put("price", this.getPrice());
+        attributes.put("rating", this.getRating());
+        attributes.put("cpu", this.getCpu());
+        attributes.put("gpu", this.getGpu());
+        attributes.put("refresh_rate", this.getScreenRate());
+        attributes.put("ram", this.getRam());
+        attributes.put("disk_size", this.getStorage());
+        attributes.put("disk_type", this.getDiskType());
+        attributes.put("resolution", this.getResolution());
+        attributes.put("screen_size", this.getScreenSize());
+        attributes.put("weight", this.getWeight());
+        attributes.put("battery", this.getBatteryLife());
+        attributes.put("url", this.getUrl());
+        return attributes;
+    }
+
+    //Lay thong so ky thuat
     public Map<String, String> getSpecification() {
         Map<String, String> specification = new HashMap<String, String>();
         specification.put("os", getOs());
@@ -34,8 +69,26 @@ public class Laptop extends Product {
         return specification;
     }
 
+    //Constructor
     public Laptop() {
         super();
+    }
+
+    public Laptop(String id, String name, String brand, String category, String os, int price, float rating, String cpu, String gpu,
+                  int screenRate, int ram, int storage, String diskType, String resolution, float screenSize, float weight, float batteryLife, String url) {
+        super(id, name, brand, price, rating, url);
+        this.category = category;
+        this.os = os;
+        this.cpu = cpu;
+        this.gpu = gpu;
+        this.screenRate = screenRate;
+        this.ram = ram;
+        this.storage = storage;
+        this.diskType = diskType;
+        this.resolution = resolution;
+        this.screenSize = screenSize;
+        this.weight = weight;
+        this.batteryLife = batteryLife;
     }
 
     //Getter and Setter
@@ -133,55 +186,5 @@ public class Laptop extends Product {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-	public Laptop(String id, String name, String brand, String category, String os, int price, float rating, String cpu, String gpu, 
-                int screenRate, int ram, int storage, String diskType, String resolution, float screenSize, float weight, float batteryLife, String url) {
-		super(id, name, brand, price, rating, url);
-		this.category = category;
-        this.os = os;
-		this.cpu = cpu;
-		this.gpu = gpu;
-        this.screenRate = screenRate;
-		this.ram = ram;
-		this.storage = storage;
-        this.diskType = diskType;
-		this.resolution = resolution;
-		this.screenSize = screenSize;
-		this.weight = weight;
-		this.batteryLife = batteryLife;
-	}
-
-	@Override
-    public String toString() {
-        return getName() + " " + getBrand() + " " + getPrice() + " " + getRating() + " " + getOs() + " "
-                + getCpu() + " " + getGpu() + " " + getRam() + " " + getDiskType() + " " + getStorage() + " "
-                + getResolution() + " " + getScreenSize() + " " + getWeight() + " " + getBatteryLife() + " "
-                + getCategory();
-    }
-
-    @Override
-     public Map<String,Object> mapToDatabase(){
-    	Map<String, Object> attributes = new HashMap<>();
-    	attributes.put("id", this.getId());
-        attributes.put("laptop_name", this.getName()); 
-        attributes.put("brand", this.getBrand()); 
-        attributes.put("category", this.getCategory()); 
-        attributes.put("os", this.getOs()); 
-        attributes.put("price", this.getPrice()); 
-        attributes.put("rating", this.getRating()); 
-        attributes.put("cpu", this.getCpu()); 
-        attributes.put("gpu", this.getGpu());
-        attributes.put("refresh_rate", this.getScreenRate()); 
-        attributes.put("ram", this.getRam()); 
-        attributes.put("disk_size", this.getStorage()); 
-        attributes.put("disk_type", this.getDiskType()); 
-        attributes.put("resolution", this.getResolution()); 
-        attributes.put("screen_size", this.getScreenSize()); 
-        attributes.put("weight", this.getWeight()); 
-        attributes.put("battery", this.getBatteryLife()); 
-        attributes.put("url", this.getUrl()); 
-        return attributes;
-    	
     }
 }
