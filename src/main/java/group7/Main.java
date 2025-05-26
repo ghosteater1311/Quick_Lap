@@ -63,7 +63,16 @@ public class Main {
         }
         
         String answer = llm.getResponse(query, similarLaptop);
-        System.out.println(answer);
+        for (char c : answer.toCharArray()) {
+            System.out.print(c);
+            System.out.flush(); // Đảm bảo ký tự được in ngay lập tức
+            try {
+                Thread.sleep(20); // Thời gian trễ 50ms giữa mỗi ký tự
+            } catch (InterruptedException e) {
+                System.err.println("Loi Interrupted khi in tung ky tu: " + e.getMessage());
+            }
+        }
+        System.out.println(); 
         scanner.close();
     }
 }

@@ -58,7 +58,7 @@ public class MistralClient implements AIClient {
 
             HttpClient client = HttpClient.newHttpClient();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
+            
             // Parse JSON response
             JSONObject jsonResponse = new JSONObject(response.body());
             JSONArray choices = jsonResponse.getJSONArray("choices");

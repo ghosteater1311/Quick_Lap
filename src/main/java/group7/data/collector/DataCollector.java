@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver; // Giao diện chính để điều khiể
 import org.openqa.selenium.WebElement; // Đại diện cho một phần tử HTML trên trang web.
 import org.openqa.selenium.chrome.ChromeDriver; // Lớp cụ thể để điều khiển trình duyệt Chrome.
 import org.openqa.selenium.chrome.ChromeOptions; // Cấu hình các tùy chọn cho trình duyệt Chrome (ví dụ: chạy ở chế độ không giao diện - headless).
-
+import io.github.bonigarcia.wdm.WebDriverManager; // Tự động quản lý và tải ChromeDriver phù hợp với phiên bản trình duyệt Chrome
 import group7.model.*;
 
 import java.io.BufferedWriter;
@@ -48,15 +48,9 @@ public class DataCollector {
         int totalLaptops = 0; // Biến đếm số lượng laptop đã thu thập.
         final int MAX_LAPTOPS = 360;
 
-        // Cấu hình ChromeDriver
-        String driverPath = "C:\\chromedriver.exe"; // Xác định đường dẫn tới file thực thi chromedriver.exe (trình điều khiển Chrome).
-        if (!new java.io.File(driverPath).exists()) {
-            System.err.println("ChromeDriver not found at: " + driverPath + ". Please update the path."); // Kiểm tra xem file chromedriver.exe có tồn tại không. 
-            return laptops; // Nếu không, in thông báo lỗi và trả về danh sách laptops rỗng.
-        }
-        System.setProperty("webdriver.chrome.driver", driverPath); // Cấu hình hệ thống để chỉ định đường dẫn tới chromedriver.exe, cho phép Selenium sử dụng Chrome.
-
-        ChromeOptions options = new ChromeOptions(); // Tạo đối tượng ChromeOptions để tùy chỉnh trình duyệt Chrome.
+       // Cấu hình ChromeDriver bằng WebDriverManager
+        WebDriverManager.chromedriver().setup(); // Tự động tải và cấu hình ChromeDriver phù hợp với phiên bản trình duyệt Chrome trên máy
+        ChromeOptions options = new ChromeOptions(); // Khởi tạo ChromeOptions để tùy chỉnh các thiết lập cho trình duyệt Chrome
         options.addArguments("--headless"); // Chạy Chrome ở chế độ không giao diện (không hiển thị cửa sổ trình duyệt).
         options.addArguments("--disable-gpu"); // Tắt tăng tốc GPU (thường dùng khi chạy headless để tránh lỗi).
         options.addArguments("--window-size=1920,1080"); // Đặt kích thước cửa sổ trình duyệt là 1920x1080 pixel.
