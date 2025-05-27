@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
@@ -16,6 +17,7 @@ public class ProductCardController {
     @FXML private Label priceLabel;
     @FXML private ImageView imageView;
     @FXML private VBox cardContainer;
+    @FXML private Button button;
 
     private Laptop laptop;
     private Stage stage;
@@ -36,9 +38,8 @@ public class ProductCardController {
         }
 
         // 👇 Gán sự kiện click tại đây
-        cardContainer.setOnMouseClicked(event -> {
+        button.setOnMouseClicked(event -> {
             try {
-                System.out.println("Click detected on: " + laptop.getName()); // debug
                 NavigationManager.navigateToProductDetail(stage, laptop.getId());
             } catch (IOException e) {
                 e.printStackTrace();
