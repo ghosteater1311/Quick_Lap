@@ -1,78 +1,17 @@
 package group7;
 
-import group7.config.*;
-import group7.model.*;
-import group7.retrieval.*;
-import group7.data.storage.*;
-import group7.llm.*;
+import group7.ui.controllers.NavigationManager;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
+public class Main extends Application {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        NavigationManager.navigateTo("Home.fxml", primaryStage);
+        primaryStage.setTitle("QuickLap");
+    }
 
-import java.util.Scanner;
-
-
-public class Main {
     public static void main(String[] args) {
-        Path filePath = Paths.get("application_file", "application.properties");
-
-    	ProductDAO<Laptop> admin = new PostgreSqlDAO<Laptop>("laptop",new LaptopPostgreSqlFactory());
-    	List<Laptop> laptops = admin.getAllProduct();
-
-        Configuration config = null;
-        EmbeddingService embeddingService = null;
-        AIClient llm = null;
-        ProductSearchService productSearchService = new ProductSearchService();
-        List<Laptop> similarLaptop = null;
-
-        try {
-            config = new Configuration(filePath);
-            embeddingService = new EmbeddingService(config);
-            llm = new MistralClient(config);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            double[][] embeddings = embeddingService.embedProducts(laptops);
-            for (int i = 0; i < laptops.size(); i++) {
-                laptops.get(i).setVector(embeddings[i]);
-            }
-        } catch (IOException e) {
-            System.err.println("Loi IO: " + e.getMessage());
-        } catch (InterruptedException e) {
-            System.err.println("Loi Interrupted: " + e.getMessage());
-        }
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Nhap chuoi: ");
-        String query = scanner.nextLine(); 
-        double[] queryVector = null;
-        try {
-            queryVector = embeddingService.embedQuery(query);
-        } catch (IOException e) {
-            System.err.println("Loi IO: " + e.getMessage());
-        }
-
-        try {
-            similarLaptop = productSearchService.searchVector(queryVector, laptops, 10);
-        } catch (Exception e) {
-            System.err.println("Loi khi tim kiem Laptop: " + e.getMessage());
-        }
-        
-        String answer = llm.getResponse(query, similarLaptop);
-        for (char c : answer.toCharArray()) {
-            System.out.print(c);
-            System.out.flush(); // Đảm bảo ký tự được in ngay lập tức
-            try {
-                Thread.sleep(20); // Thời gian trễ 50ms giữa mỗi ký tự
-            } catch (InterruptedException e) {
-                System.err.println("Loi Interrupted khi in tung ky tu: " + e.getMessage());
-            }
-        }
-        System.out.println(); 
-        scanner.close();
+        launch(args);
     }
 }

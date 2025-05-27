@@ -23,9 +23,9 @@ public class ProductSearchService {
     }
 
     private double cosineSimilarity(double[] vectorA, double[] vectorB) {
-        float dotProduct = 0.0f;
-        float normA = 0.0f;
-        float normB = 0.0f;
+        double dotProduct = 0.0;
+        double normA = 0.0;
+        double normB = 0.0;
         for (int i = 0; i < vectorA.length; i++) {
             dotProduct += vectorA[i] * vectorB[i];
             normA += vectorA[i] * vectorA[i];

@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
 import java.io.IOException;
+import java.util.List;
 
 public class ProductDetailController {
     @FXML private Label nameLabel;
