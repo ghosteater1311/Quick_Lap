@@ -3,12 +3,8 @@ package group7.data.storage;
 import group7.model.*;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import group7.data.storage.ProductDAO;
-import group7.data.storage.ProductFactory;
 
 public class PostgreSqlDAO<T extends Product> implements ProductDAO<T>{
 	private final String url = "jdbc:postgresql://192.168.1.226:5433/products";
@@ -41,11 +37,11 @@ public class PostgreSqlDAO<T extends Product> implements ProductDAO<T>{
 		Map<String, Object> attributes = product.mapToDatabase();
 		StringBuilder columns = new StringBuilder();
 	    StringBuilder placeholders = new StringBuilder();
-	    int col=0;
+	    //int col=0;
 	    for (String key : attributes.keySet()) {
 	            columns.append(key).append(",");
 	            placeholders.append("?,");
-	            col++;
+	            //col++;
 	    }
 	    columns.deleteCharAt(columns.length() - 1);
 	    placeholders.deleteCharAt(placeholders.length() - 1);

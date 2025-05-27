@@ -14,7 +14,7 @@ public class NavigationManager {
     }
 
     public static void navigateToProductDetail(Stage stage, String laptopId) throws IOException {
-        FXMLLoader loader = new FXMLLoader(NavigationManager.class.getResource("/group7/ui/controllers/ProductDetail.fxml"));
+        FXMLLoader loader = new FXMLLoader(NavigationManager.class.getResource("/group7/ui/view/ProductDetail.fxml"));
         Scene scene = new Scene(loader.load());
         ProductDetailController controller = loader.getController();
         controller.setLaptopId(laptopId); // Truyền ID để tải chi tiết laptop

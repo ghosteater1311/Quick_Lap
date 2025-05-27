@@ -6,7 +6,6 @@ import group7.model.Laptop;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -44,6 +43,7 @@ public class HomeController {
                 fxmlLoader.setController(productCardController);
                 VBox vBox = new VBox();
                 vBox = fxmlLoader.load();
+                productCardController.setStage(stage);
                 productCardController.setData(laptops.get(i));
 
                 if (column == 5) {
