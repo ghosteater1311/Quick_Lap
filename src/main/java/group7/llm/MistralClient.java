@@ -49,6 +49,7 @@ public class MistralClient implements AIClient {
                 .put("messages", messages)
                 .put("temperature", 0.7);
 
+            
             HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(config.getApiEndpoint())) // Sử dụng config thay vì hard-code
                 .header("Authorization", "Bearer " + config.getApiKey()) // Sử dụng config thay vì hard-code

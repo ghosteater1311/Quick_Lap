@@ -39,7 +39,7 @@ public class ChatController {
 
     @FXML
     public void initialize() {
-        filePath = Paths.get("./Quick_Lap/application_file", "application.properties");
+        filePath = Paths.get("./application_file", "application.properties");
 
         laptopDAO = new PostgreSqlDAO<>("laptop", new LaptopPostgreSqlFactory());
         laptops = laptopDAO.getAllProduct();

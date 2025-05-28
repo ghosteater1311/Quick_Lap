@@ -26,7 +26,7 @@
                 <!-- Background Image -->
                 <ImageView fitHeight="400.0" fitWidth="1600.0" pickOnBounds="true" preserveRatio="false">
                     <image>
-                        <Image url="@Background.jpg" />
+                        <Image url="@/archive/QuickLap.jpg" />
                     </image>
                 </ImageView>
 
@@ -89,47 +89,33 @@
             <ComboBox fx:id="brandComboBox" prefHeight="30.0" prefWidth="150.0" promptText="Brand" style="-fx-background-color: #dfe6e9; -fx-font-size: 14px; -fx-font-weight: bold;">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Dell" />
-                        <String fx:value="Lenovo" />
-                        <String fx:value="MSI" />
-                        <String fx:value="Acer" />
-                        <String fx:value="Asus" />
-                        <String fx:value="HP" />
-                        <String fx:value="Macbook" />
                     </FXCollections>
                 </items>
             </ComboBox>
             <ComboBox fx:id="categoryComboBox" prefHeight="30.0" prefWidth="150.0" promptText="Category" style="-fx-background-color: #dfe6e9; -fx-font-size: 14px; -fx-font-weight: bold;">
                <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Gaming" />
-                        <String fx:value="AI" />
-                        <String fx:value="Van Phong" />
                     </FXCollections>
                 </items>
             </ComboBox>
             <ComboBox fx:id="osComboBox" prefHeight="30.0" prefWidth="150.0" promptText="OS" style="-fx-background-color: #dfe6e9; -fx-font-size: 14px; -fx-font-weight: bold;">
                <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Window" />
-                        <String fx:value="macOS" />
                     </FXCollections>
                 </items>
             </ComboBox>
-            <ComboBox prefHeight="30.0" prefWidth="150.0" promptText="Cost" style="-fx-background-color: #dfe6e9; -fx-font-size: 14px; -fx-font-weight: bold;">
+            <ComboBox fx:id="costComboBox" prefHeight="30.0" prefWidth="150.0" promptText="Cost" style="-fx-background-color: #dfe6e9; -fx-font-size: 14px; -fx-font-weight: bold;">
                <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Increase" />
-                        <String fx:value="Decrease" />
                     </FXCollections>
                 </items>
             </ComboBox>
             </children>
 
         </HBox>
-      <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="760.0" prefWidth="1024.0">
+      <ScrollPane fitToWidth="true" fitToHeight="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="760.0" prefWidth="1024.0">
          <content>
-            <GridPane fx:id="gridPane" alignment="CENTER" pickOnBounds="false">
+            <GridPane fx:id="gridPane" maxWidth="Infinity" maxHeight="Infinity" alignment="CENTER">
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
