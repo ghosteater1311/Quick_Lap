@@ -10,7 +10,7 @@ import java.util.List;
 
 import group7.model.Laptop;
 
-public class LaptopPostgreSqlFactory implements ProductFactory<Laptop> {
+public class LaptopPostgreSqlFactory extends SqlFactory {
 
 	@Override
 	public Laptop createProduct(ResultSet rs) throws SQLException {
@@ -36,25 +36,4 @@ public class LaptopPostgreSqlFactory implements ProductFactory<Laptop> {
                 );
 		return laptop;
 	}
-
-	@Override
-	public List<Laptop> afterQueryProduct(String query, String url, String user, String password) {
-		List<Laptop> products = new ArrayList<Laptop>();
-
-        try (Connection conn = DriverManager.getConnection(url, user, password); //tạo ra 1 kết nối đến database cho phép thực hiện các query
-             Statement stmt = conn.createStatement();                            //cho phép thực hiện các câu query đơn giản không có tham số
-             ResultSet rs = stmt.executeQuery(query)) {   // trả về kết quả của câu truy vấn có dạng như là 1 bảng ảo
-
-            while (rs.next()) {
-                Laptop product = this.createProduct(rs);
-                products.add(product);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return products;
-	}
-
 }
