@@ -8,6 +8,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         NavigationManager.navigateTo("Home.fxml", primaryStage);
+        primaryStage.setY(200);
         primaryStage.setTitle("QuickLap");
     }
 
@@ -15,3 +16,4 @@ public class Main extends Application {
         launch(args);
     }
 }
+// chi nhap dduoc tieng anh thoi anh oi

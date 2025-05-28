@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -38,8 +39,10 @@ public class ProductCardController {
         }
 
         // 👇 Gán sự kiện click tại đây
-        button.setOnMouseClicked(event -> {
+        button.setOnAction(event -> {
             try {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                System.out.println(laptop.getId());
                 NavigationManager.navigateToProductDetail(stage, laptop.getId());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -61,6 +64,6 @@ public class ProductCardController {
 
     @FXML
     public void initialize() {
-        // Không thực hiện gì trong initialize, chờ setData
+        
     }
 }

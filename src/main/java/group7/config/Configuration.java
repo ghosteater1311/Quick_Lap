@@ -9,10 +9,12 @@ import java.util.Properties;
 public class Configuration {
     private final Properties properties;
 
-    public Configuration(Path configFilePath) throws IOException {
+    public Configuration(Path configFilePath)  {
         properties = new Properties();
         try (InputStream is = Files.newInputStream(configFilePath)) {
             properties.load(is);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

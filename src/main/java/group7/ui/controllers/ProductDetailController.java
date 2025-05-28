@@ -3,12 +3,12 @@ package group7.ui.controllers;
 import group7.data.storage.PostgreSqlDAO;
 import group7.data.storage.LaptopPostgreSqlFactory;
 import group7.model.Laptop;
-import group7.ui.controllers.*;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import java.io.IOException;
 import java.util.List;
@@ -41,6 +41,7 @@ public class ProductDetailController {
         laptopDAO = new PostgreSqlDAO<>("laptops", new LaptopPostgreSqlFactory());
         backButton.setOnAction(event -> {
             try {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 NavigationManager.navigateTo("Home.fxml", stage);
             } catch (IOException e) {
                 e.printStackTrace();

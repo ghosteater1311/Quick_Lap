@@ -27,7 +27,7 @@ public class PostgreSqlDAO<T extends Product> implements ProductDAO<T>{
     
 	@Override
 	public List<T> getAllProduct() {
-		String sql = "SELECT * FROM "+ table;
+		String sql = "SELECT * FROM "+ "laptop";
 		return productFactory.afterQueryProduct(sql, url, user, password);
 	}
 	

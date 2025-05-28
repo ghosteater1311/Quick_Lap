@@ -10,6 +10,8 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button; 
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -20,11 +22,10 @@ import java.util.List;
 import javafx.util.Duration;
 
 public class ChatController {
-    @FXML private TextField queryField;
-    @FXML private TextArea responseArea;
-    @FXML private VBox productContainer;
-    @FXML private Button searchButton;
-    @FXML private Button backButton;
+    @FXML private TextField txtQuestion;
+    @FXML private TextArea txtResponse;
+    @FXML private Button btnSearch;
+    @FXML private Button btnBackToHome;
 
     private List<Laptop> laptops;
     private List<Laptop> similarLaptops;
@@ -38,22 +39,24 @@ public class ChatController {
 
     @FXML
     public void initialize() {
-        filePath = Paths.get("application_file", "application.properties");
+        filePath = Paths.get("./Quick_Lap/application_file", "application.properties");
 
-        laptopDAO = new PostgreSqlDAO<>("laptops", new LaptopPostgreSqlFactory());
+        laptopDAO = new PostgreSqlDAO<>("laptop", new LaptopPostgreSqlFactory());
         laptops = laptopDAO.getAllProduct();
+        productSearchService = new ProductSearchService();
 
         try {
             config = new Configuration(filePath);
             embeddingService = new EmbeddingService(config);
             llm = new MistralClient(config);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        searchButton.setOnAction(event -> handleAISearch());
-        backButton.setOnAction(event -> {
+        btnSearch.setOnAction(event -> handleAISearch());
+        btnBackToHome.setOnAction(event -> {
             try {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 NavigationManager.navigateTo("Home.fxml", stage);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -66,9 +69,13 @@ public class ChatController {
     }
 
     private void handleAISearch() {
-        String query = queryField.getText().trim();
+        String query = txtQuestion.getText().trim();
         if (query.isEmpty()) {
-            responseArea.setText("Please enter a question.");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Thông báo");
+            alert.setHeaderText("Thông tin quan trọng");
+            alert.setContentText("Please enter a question.");
+            alert.showAndWait();
             return;
         }
 
@@ -99,15 +106,14 @@ public class ChatController {
 
             String answer = llm.getResponse(query, similarLaptops);
             displayTextGradually(answer);
-
         } catch (Exception e) {
-            responseArea.setText("Error when processing query: " + e.getMessage());
+            txtResponse.setText("Error when processing query: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
     private void displayTextGradually(String text) {
-        responseArea.clear(); // Xóa nội dung cũ
+        txtResponse.clear(); // Xóa nội dung cũ
         Timeline timeline = new Timeline();
         final int[] index = {0}; // Biến đếm ký tự
 
@@ -115,7 +121,7 @@ public class ChatController {
             Duration.millis(20), // Tốc độ hiển thị mỗi ký tự (50ms)
             event -> {
                 if (index[0] < text.length()) {
-                    responseArea.appendText(String.valueOf(text.charAt(index[0])));
+                    txtResponse.appendText(String.valueOf(text.charAt(index[0])));
                     index[0]++;
                 } else {
                     timeline.stop(); // Dừng khi hết văn bản

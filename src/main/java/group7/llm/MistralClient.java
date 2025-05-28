@@ -61,11 +61,12 @@ public class MistralClient implements AIClient {
             
             // Parse JSON response
             JSONObject jsonResponse = new JSONObject(response.body());
+             System.out.println(jsonResponse);
             JSONArray choices = jsonResponse.getJSONArray("choices");
             JSONObject firstChoice = choices.getJSONObject(0);
             JSONObject message = firstChoice.getJSONObject("message");
             String answer = message.getString("content");
-
+           
             return answer;
         } catch (Exception e) {
             e.printStackTrace();
