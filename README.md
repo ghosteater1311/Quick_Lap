@@ -1,5 +1,7 @@
 # Quick Lap (Laptop Recommendation System)
 
+_[Report][doc]_
+
 Team size: 5 people
 
 - Project Field: Software Engineering, Object-Oriented Programming, Database, LLMs, Chatbot, Natural Language Processing, Data Scraping.
@@ -146,6 +148,10 @@ Used by EmbeddingService and MistralClient to make POST requests to external API
 
 • CSV Data Serialization: Converting lists of Laptop objects into a CSV file format for storage/export.
 
+_For more information, please read the [Report][doc]_
+
 ## Demo
 
 
+
+[doc]: Report.pdf
