@@ -16,6 +16,10 @@ as Retrieval-Augmented Generation (RAG) using large language models (LLMs).
 • By evaluating different LLMs and retrieval pipelines, we aim to identify the most effective combi-
 nation for enhancing user experience and reducing search time.
 
+## Demo
+
+https://github.com/user-attachments/assets/189662e1-daa3-4e99-9a8d-9ce0092098d0
+
 ## System Design
 
 <img width="543" alt="Use Case" src="https://github.com/user-attachments/assets/d30a1dd8-23de-48bc-8dfe-6dbc85713de8" />
@@ -149,9 +153,5 @@ Used by EmbeddingService and MistralClient to make POST requests to external API
 • CSV Data Serialization: Converting lists of Laptop objects into a CSV file format for storage/export.
 
 _For more information, please read the [Report][doc]_
-
-## Demo
-
-https://github.com/user-attachments/assets/189662e1-daa3-4e99-9a8d-9ce0092098d0
 
 [doc]: Report.pdf
