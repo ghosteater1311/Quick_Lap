@@ -1,6 +1,6 @@
 # Quick Lap (Laptop Recommendation System)
 
-_[Report][doc]_
+_Documents about the project: [Report][doc]_
 
 Team size: 5 people
 
