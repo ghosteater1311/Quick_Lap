@@ -7,6 +7,7 @@ Team size: 5 people
 This project addresses that challenge by developing a question-answering and product recommendation system for e-commerce platforms.
 
 To support efficient and accurate product discovery, we experimented with several approaches:
+
 • From traditional keyword-based search and information processing to advanced AI methods such
 as Retrieval-Augmented Generation (RAG) using large language models (LLMs).
 
